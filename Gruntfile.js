@@ -39,7 +39,7 @@ module.exports = function(grunt) {
           engine: 'im',
           sizes: [{
             name: 'sm',
-            width: 1600,
+            width: '25%',
             quality: 30
           },{
             name: 'lg',
@@ -99,12 +99,40 @@ module.exports = function(grunt) {
       ]
       },
     },
+    uglify: {
+       my_target: {
+         files: {
+           'js/perfmatters.min.js': ['js/perfmatters.js'],
+           'views/js/main.min.js': ['views/js/main.js']
+         }
+       }
+     },
+   cssmin: {
+     target: {
+       files: [{
+         expand: true,
+         cwd: 'css',
+         src: ['*.css', '!*.min.css'],
+         dest: 'css',
+         ext: '.min.css'
+       },
+       {
+         expand: true,
+         cwd: 'views/css',
+         src: ['*.css', '!*.min.css'],
+         dest: 'views/css',
+         ext: '.min.css'
+       }]
+     }
+ }
   });
 
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Register customer task for ngrok
   grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
@@ -125,6 +153,8 @@ module.exports = function(grunt) {
   // Register default tasks
   grunt.registerTask('default', 'Optimize images and test with pagespeed',function(){
     grunt.task.run(['clean', 'mkdir', 'copy', 'responsive_images']);
+    grunt.task.run(['uglify']);
+    grunt.task.run(['cssmin']);
     //minify resources
     grunt.task.run('psi-ngrok');
   });
