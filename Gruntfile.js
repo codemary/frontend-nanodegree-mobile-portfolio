@@ -55,14 +55,14 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['*.{gif,jpg,png}'],
-          cwd: 'img',
-          dest: 'images/'
+          cwd: 'src/img',
+          dest: 'dist/images/'
         },
         {
           expand: true,
           src: ['*.{gif,jpg,png}'],
-          cwd: 'views/images',
-          dest: 'views/img/'
+          cwd: 'src/views/images',
+          dest: 'dist/views/img/'
         }]
       }
     },
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
     /* Clear out the images directory if it exists */
     clean: {
       dev: {
-        src: ['images','views/img'],
+        src: ['src/images','src/views/img'],
       },
     },
 
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     mkdir: {
       dev: {
         options: {
-          create: ['images','views/img']
+          create: ['dist/images','dist/views/img']
         },
       },
     },
@@ -88,13 +88,13 @@ module.exports = function(grunt) {
       dev: {
         files: [{
           expand: true,
-          src: 'img/fixed/*.{gif,jpg,png}',
-          dest: 'images/'
+          src: 'src/img/fixed/*.{gif,jpg,png}',
+          dest: 'dist/images/'
         },
         {
           expand: true,
-          src: 'views/images/fixed/*.{gif,jpg,png}',
-          dest: 'views/img/'
+          src: 'src/views/images/fixed/*.{gif,jpg,png}',
+          dest: 'dist/views/img/'
         }
       ]
       },
@@ -102,8 +102,8 @@ module.exports = function(grunt) {
     uglify: {
        my_target: {
          files: {
-           'js/perfmatters.min.js': ['js/perfmatters.js'],
-           'views/js/main.min.js': ['views/js/main.js']
+           'dist/js/perfmatters.min.js': ['src/js/perfmatters.js'],
+           'dist/views/js/main.min.js': ['src/views/js/main.js']
          }
        }
      },
@@ -111,16 +111,16 @@ module.exports = function(grunt) {
      target: {
        files: [{
          expand: true,
-         cwd: 'css',
+         cwd: 'src/css',
          src: ['*.css', '!*.min.css'],
-         dest: 'css',
+         dest: 'dist/css',
          ext: '.min.css'
        },
        {
          expand: true,
-         cwd: 'views/css',
+         cwd: 'src/views/css',
          src: ['*.css', '!*.min.css'],
-         dest: 'views/css',
+         dest: 'dist/views/css',
          ext: '.min.css'
        }]
      }

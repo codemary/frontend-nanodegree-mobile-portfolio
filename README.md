@@ -103,12 +103,6 @@ The task was to optimize the online portfolio for speed, in particular, the crit
   +  for (var i = 0; i < 32; i++) {
 
   ```
-4. /.htaccess :
-
-    Added .htaccess file to use browser caching capabilities.
-
-    [source](https://www.garron.me/en/bits/apache-htaccess-add-cache-control-header-file-type.html)
-    
 
 ### Installation and Testing
 
@@ -130,10 +124,27 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
   ```
 
-3. Test locally
+3. Analyze locally using `grunt-pagespeed` and `ngrok`
 
   ```bash
 
+  $ cd dist
+  $ python -m SimpleHTTPServer 8080
+  $ cd ..
   $ grunt
 
   ```
+
+4. Or Analyze at Google Pagespeed Insights
+
+  ```bash
+
+  $ cd dist
+  $ python -m SimpleHTTPServer 8080
+
+  #Open a new tab in the terminal
+  $ ngrok http 8080
+
+  ```
+
+Copy the forwarded url and paste it in the [pagespeed insights](https://developers.google.com/speed/pagespeed/insights/) page.
