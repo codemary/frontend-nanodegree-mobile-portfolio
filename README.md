@@ -68,9 +68,11 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
   ```
 
-  c.1. Moved `document.body.scrollTop` out of the for loop and stored query result in a variable for reuse.
+  c. Use translateX,Z transform functions.
 
-  c.2. Used translateX() and translateZ(0) transform functions to the sliding pizza
+    1. Moved `document.body.scrollTop` out of the for loop and stored query result in a variable for reuse.
+
+    2. Used translateX() and translateZ(0) transform functions to the sliding pizza
 
   ```js
 
