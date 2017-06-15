@@ -44,7 +44,7 @@ module.exports = function(grunt) {
           },{
             name: 'lg',
             width: '50%',
-            quality: 40
+            quality: 30
           }]
         },
 
