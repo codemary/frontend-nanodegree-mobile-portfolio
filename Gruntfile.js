@@ -8,6 +8,7 @@
 'use strict'
 
 var ngrok = require('ngrok');
+var mozjpeg = require('imagemin-mozjpeg');
 
 module.exports = function(grunt) {
 
@@ -39,12 +40,13 @@ module.exports = function(grunt) {
           engine: 'im',
           sizes: [{
             name: 'sm',
-            width: '25%',
-            quality: 30
+            width: '25%'
+          },{
+            name: 'md',
+            width: '70%'
           },{
             name: 'lg',
-            width: '50%',
-            quality: 30
+            width: '100%'
           }]
         },
 
@@ -67,10 +69,31 @@ module.exports = function(grunt) {
       }
     },
 
+    imagemin: {
+      dynamic: {
+        options: {
+          optimizationLevel: 7,
+          use: [mozjpeg({quality:30})]
+          },
+        files: [{
+          expand: true,
+          cwd: 'dist/images/',
+          src: ['**/*.{png,jpg}','!profilepic*.jpg'],
+          dest: 'dist/images/'
+        },
+          {
+            expand: true,
+            cwd: 'dist/views/img/',
+            src: ['**/*.{png,jpg}'],
+            dest: 'dist/views/img/'
+            }]
+         }
+      },
+
     /* Clear out the images directory if it exists */
     clean: {
       dev: {
-        src: ['src/images','src/views/img'],
+        src: ['dist/images','dist/views/img'],
       },
     },
 
@@ -133,6 +156,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+
 
   // Register customer task for ngrok
   grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
@@ -152,7 +177,7 @@ module.exports = function(grunt) {
 
   // Register default tasks
   grunt.registerTask('default', 'Optimize images and test with pagespeed',function(){
-    grunt.task.run(['clean', 'mkdir', 'copy', 'responsive_images']);
+    grunt.task.run(['clean', 'mkdir', 'copy', 'responsive_images', 'imagemin']);
     grunt.task.run(['uglify']);
     grunt.task.run(['cssmin']);
     //minify resources

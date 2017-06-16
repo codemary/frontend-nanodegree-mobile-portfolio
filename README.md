@@ -37,7 +37,7 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
 3. JavaScript Optimizations :
 
-  a. Replaced the images with optimized responsive images.
+  a. Replaced the images with optimized and responsive images.
 
   ```js
 
@@ -97,14 +97,6 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
   ```
 
-  e. Reduced the number of pizzas from 200 to 32 so that there are fewer items to render.
-
-  ```js
-
-  -  for (var i = 0; i < 200; i++) {
-  +  for (var i = 0; i < 32; i++) {
-
-  ```
 
 ### Installation and Testing
 
@@ -132,6 +124,8 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
   $ cd dist
   $ python -m SimpleHTTPServer 8080
+
+  #Open a new tab in the terminal
   $ cd ..
   $ grunt
 
