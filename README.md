@@ -24,6 +24,7 @@ The task was to optimize the online portfolio for speed, in particular, the crit
  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 
  ```
+ And replaced with inlined css.
 
 2. views/pizza.html :
 
@@ -38,16 +39,6 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 3. JavaScript Optimizations :
 
   a. Replaced the images with optimized and responsive images.
-
-  ```js
-
-  -  pizzaImage.src = "images/pizza.png";
-  +  pizzaImage.src = "img/pizza-lg.png";
-
-  -  elem.src = "images/pizza.png";
-  +  elem.src = "img/pizza-sm.png";
-
-  ```
 
   b. Moved `document.querySelectorAll` out of the for loop and stored query result in a variable for reuse.
 

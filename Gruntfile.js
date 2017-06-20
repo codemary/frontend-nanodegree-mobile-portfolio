@@ -34,6 +34,26 @@ module.exports = function(grunt) {
         }
       }
     },
+    image_resize: {
+          "pizzeria.jpg": {
+               options: {
+                  width: 100,
+                  height: 100
+               },
+               files: {
+                  'dist/views/images/pizzeria_100.jpg' : 'src/views/images/pizzeria.jpg'
+               }
+            },
+            "pizza.png": {
+               options: {
+                  width: 77,
+                  height: 100
+               },
+               files: {
+                  'dist/views/images/pizza.png' : 'src/views/images/pizza.png'
+               }
+            }
+          },
     responsive_images: {
       dev: {
         options: {
@@ -49,11 +69,6 @@ module.exports = function(grunt) {
             width: '100%'
           }]
         },
-
-        /*
-        You don't need to change this part if you don't change
-        the directory structure.
-        */
         files: [{
           expand: true,
           src: ['*.{gif,jpg,png}'],
@@ -64,36 +79,36 @@ module.exports = function(grunt) {
           expand: true,
           src: ['*.{gif,jpg,png}'],
           cwd: 'src/views/images',
-          dest: 'dist/views/img/'
+          dest: 'dist/views/images/'
         }]
       }
     },
 
     imagemin: {
-      dynamic: {
-        options: {
-          optimizationLevel: 7,
-          use: [mozjpeg({quality:30})]
-          },
-        files: [{
-          expand: true,
-          cwd: 'dist/images/',
-          src: ['**/*.{png,jpg}','!profilepic*.jpg'],
-          dest: 'dist/images/'
-        },
-          {
+        dynamic: {
+          options: {
+            optimizationLevel: 7,
+            use: [mozjpeg({quality:30})]
+            },
+          files: [{
             expand: true,
-            cwd: 'dist/views/img/',
-            src: ['**/*.{png,jpg}'],
-            dest: 'dist/views/img/'
-            }]
-         }
+            cwd: 'dist/images/',
+            src: ['**/*.{png,jpg}','!profilepic*.jpg'],
+            dest: 'dist/images/'
+          },
+            {
+              expand: true,
+              cwd: 'dist/views/images/',
+              src: ['**/*.{png,jpg}'],
+              dest: 'dist/views/images/'
+              }]
+           }
       },
 
     /* Clear out the images directory if it exists */
     clean: {
       dev: {
-        src: ['dist/images','dist/views/img'],
+        src: ['dist/images','dist/views/images'],
       },
     },
 
@@ -101,7 +116,7 @@ module.exports = function(grunt) {
     mkdir: {
       dev: {
         options: {
-          create: ['dist/images','dist/views/img']
+          create: ['dist/images','dist/views/images']
         },
       },
     },
@@ -117,7 +132,7 @@ module.exports = function(grunt) {
         {
           expand: true,
           src: 'src/views/images/fixed/*.{gif,jpg,png}',
-          dest: 'dist/views/img/'
+          dest: 'dist/views/images/'
         }
       ]
       },
@@ -157,6 +172,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-image-resize');
 
 
   // Register customer task for ngrok
@@ -177,7 +193,7 @@ module.exports = function(grunt) {
 
   // Register default tasks
   grunt.registerTask('default', 'Optimize images and test with pagespeed',function(){
-    grunt.task.run(['clean', 'mkdir', 'copy', 'responsive_images', 'imagemin']);
+    grunt.task.run(['clean', 'mkdir', 'copy', 'responsive_images', 'image_resize', 'imagemin']);
     grunt.task.run(['uglify']);
     grunt.task.run(['cssmin']);
     //minify resources
