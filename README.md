@@ -59,21 +59,18 @@ The task was to optimize the online portfolio for speed, in particular, the crit
 
   ```
 
-  c. Use translateX,Z transform functions.
+  c. Use translateX transform functions.
 
     1. Moved `document.body.scrollTop` out of the for loop and stored query result in a variable for reuse.
 
-    2. Used translateX() and translateZ(0) transform functions to the sliding pizza
+    2. Used translateX() transform functions to the sliding pizza
 
   ```js
 
-      for (var i = 0; i < items.length; i++) {
-    -    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    -    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    +    var phase = Math.sin(top + (i % 5));
-    +  var left = -items[i].basicLeft + 1000 * phase + 'px';
-    +               items[i].style.transform = "translateX("+left+") translateZ(0)";
-       }
+      for (var i = 0, phase, len = items.length; i < len; i++) {
+        phase = Math.sin(top + (i % 5));
+        items[i].style.transform = "translateX(" + 100 * phase + "px)";
+      }
 
   ```
 
